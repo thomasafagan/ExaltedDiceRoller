@@ -9,9 +9,9 @@ def return_result():
     
     amount = request.get_json(0)
     doubles
-    if(amount[doubles]):
+    try:
         doubles = amount['doubles']
-    else:
+    except:
         doubles = 10
     result=""
     dictionary={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0}
