@@ -8,7 +8,7 @@ app = Flask(__name__)
 def return_result():
     
     amount = request.get_json(0)
-    doubles
+    doubles=0
     try:
         doubles = amount['doubles']
     except:
