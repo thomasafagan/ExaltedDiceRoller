@@ -8,7 +8,7 @@ app = Flask(__name__)
 def return_result():
     
     amount = request.get_json(0)
-    
+    doubles = amount['doubles']
     result=""
     dictionary={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0}
     sucs = 0
