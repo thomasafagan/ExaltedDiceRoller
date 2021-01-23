@@ -36,7 +36,8 @@ def return_result():
         'results': result,
         'dice total': neat,
         'botch': botch,
-        'successes': sucs
+        'successes': sucs,
+        'doubles': doubles
     })
     
 
