@@ -1,0 +1,28 @@
+{
+    "Inputs":{
+        "Amount": "This is the number of d10s you'd like to roll",
+        "Threshold": "This is the minimum number needed to score a success on a die.",
+        "Doubles": "This is the minimum number needed to score two successes on a single die.",
+        "Help": "Displays this",
+        "Splat":{
+            "About": "If there's a default splat you'd like to play, use this",
+            "Examples": {
+                "Solars": "Successes are by default 7, doubles are 10."
+            }
+
+        }
+
+    },
+    "Outputs":{
+        "Botch": "You scored 0 successes and had at least one die showed a 1",
+        "Count_Of_Each_Result": "This array shows how many 1's, 2's, 3's, etc. that were rolled",
+        "Individual_Dice": "Shows the result of each dice rolled",
+        "Succeses": "Tells the number of dice that rolled above your threshold, and including doubles",
+        "Threshold": "This is the minimum number needed to score a success on a die.",
+        "Doubles": "This is the minimum number needed to score two successes on a single die."
+    }
+
+
+
+
+}
