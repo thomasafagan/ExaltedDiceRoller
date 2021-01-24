@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, url_for
 
-from outputjson import *
+from outputjson import output
 import json
 app = Flask(__name__)
 
@@ -26,20 +26,20 @@ if __name__ == '__main__':
 
 def SolarRolls(jsonobj):
     try:
-        amount = thisjson['amount']
+        amount = jsonobj['amount']
     except:
         error = "Failed to get amount of dice you wanted to roll."
         amount = 1
     doubles=0
     try:
-        doubles = thisjson['doubles']
+        doubles = jsonobj['doubles']
     except:
         doubles = 10
     try:
-        threshold = thisjson['threshold']
+        threshold = jsonobj['threshold']
     except:
         threshold = 7
-    SolarPool = new outputjson.output(amount, doubles, threshold)
+    SolarPool = output(amount, doubles, threshold)
     neat=json.dumps(SolarPool.dict)
     SolarPool.result = SolarPool.result[:-2]
 
@@ -49,7 +49,7 @@ def SolarRolls(jsonobj):
             'results': SolarPool.result,
             'dice total': neat,
             'botch': SolarPool.successes != 0,
-            'successes': SolarPool.sucs,
+            'successes': SolarPool.successes,
             'doubles': doubles
         })
     else:
