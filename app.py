@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, url_for
-from random import *
+
+from outputjson import *
 import json
 app = Flask(__name__)
 
@@ -7,44 +8,55 @@ app = Flask(__name__)
 
 def return_result():
     
-    amount = request.get_json(0)
-    doubles=0
+    thisjson = 0
     try:
-        doubles = amount['doubles']
+        thisjson = request.get_json(0)
+        if(thisjson['splat']=="Solar"):
+            return SolarRolls(thisjson)
+        else:
+            return "Not implemented yet"
     except:
-        doubles = 10
-    result=""
-    dictionary={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0}
-    sucs = 0
-    botch=False
-
-    for i in range(0,amount['amount']):
-        
-        temp=(randint(1,10))
-        print(temp)
-        result+=str(temp)+", "
-        dictionary[temp]=dictionary[temp]+1
-        if(temp>=7):
-            if(temp==10):
-                sucs+=2
-            else:
-                sucs+=1
-    if((sucs==0) and (dictionary[1]>0)):
-        botch=True
-    neat=json.dumps(dictionary)
-    result = result[:-2]
-
-
-
-    return jsonify({
-        'results': result,
-        'dice total': neat,
-        'botch': botch,
-        'successes': sucs,
-        'doubles': doubles
-    })
+        SolarRolls(thisjson)
     
 
 if __name__ == '__main__':
 
     app.run(host='0.0.0.0',port=80)
+
+
+def SolarRolls(jsonobj):
+    try:
+        amount = thisjson['amount']
+    except:
+        error = "Failed to get amount of dice you wanted to roll."
+        amount = 1
+    doubles=0
+    try:
+        doubles = thisjson['doubles']
+    except:
+        doubles = 10
+    try:
+        threshold = thisjson['threshold']
+    except:
+        threshold = 7
+    SolarPool = new outputjson.output(amount, doubles, threshold)
+    neat=json.dumps(SolarPool.dict)
+    SolarPool.result = SolarPool.result[:-2]
+
+    output = ""
+    if(error == ""):
+        output = jsonify({
+            'results': SolarPool.result,
+            'dice total': neat,
+            'botch': SolarPool.successes != 0,
+            'successes': SolarPool.sucs,
+            'doubles': doubles
+        })
+    else:
+        output = jsonify({
+            'error': error
+        })
+
+    return output
+
+
